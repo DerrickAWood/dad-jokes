@@ -59,6 +59,14 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+    async deleteJoke({commit, dispatch}, jokeId){
+      try {
+        await api.delete('jokes/' + jokeId)
+        dispatch('getJokes')
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 });

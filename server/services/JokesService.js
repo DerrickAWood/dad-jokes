@@ -6,6 +6,11 @@ class JokesService {
     return await dbContext.Jokes.create(body)
   }
 
+  async delete(id){
+    let joke = await dbContext.Jokes.findByIdAndDelete(id)
+    return joke
+  }
+
   async findAll(query = {}) {
     let jokes = await dbContext.Jokes.find(query).populate("creator", "name picture");
     return jokes;

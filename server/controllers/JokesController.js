@@ -10,7 +10,8 @@ export class JokesController extends BaseController {
       .get("", this.getAll)
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(auth0Provider.getAuthorizedUserInfo)
-      .post("", this.create);
+      .post("", this.create)
+      .delete("/:id", this.delete)
   }
 
   async getAll(req, res, next) {
@@ -18,6 +19,15 @@ export class JokesController extends BaseController {
       res.send(await jokesService.findAll());
     } catch (error) {
       next(error);
+    }
+  }
+
+  async delete(req,res,next){
+    try {
+      let joke = await jokesService.delete(req.params.id)
+      return res.send("deleted")
+    } catch (error) {
+      next(error)
     }
   }
 
