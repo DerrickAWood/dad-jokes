@@ -2,6 +2,10 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class JokesService {
+  async getById(id) {
+    let joke = await dbContext.Jokes.findById(id)
+    return joke
+  }
   async create(body) {
     return await dbContext.Jokes.create(body)
   }
